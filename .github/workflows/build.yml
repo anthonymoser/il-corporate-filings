@@ -8,10 +8,6 @@ concurrency:
 
 # Controls when the action will run. 
 on:
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '15 2 * * *'    
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -34,25 +30,49 @@ jobs:
       - name: build database
         run: make
  
-      - name: Upload release binary
-        uses: actions/upload-release-asset@v1.0.2
+      - name: release
+        uses: WebFreak001/deploy-nightly@v1.2.0
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # automatically provided by github actions
         with:
           upload_url: "https://uploads.github.com/repos/anthonymoser/il-corporate-filings/releases/138548690/assets{?name,label}"
-          asset_path: llc.zip 
-          asset_name: llc.zip
-          asset_content_type: application/zip
+          release_id: 138548690
+          asset_path: ./llc.zip # path to archive to upload
+          asset_name: llc.zip # name to upload the release as, use $$ to insert date (YYYYMMDD) and 6 letter commit hash
+          asset_content_type: application/zip # required by GitHub API
+          max_releases: 7 # optional, if there are more releases than this matching the asset_name, the oldest ones are going to be deleted
+          
+      - name: release
+        uses: WebFreak001/deploy-nightly@v1.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # automatically provided by github actions
+        with:
+          upload_url: "https://uploads.github.com/repos/anthonymoser/il-corporate-filings/releases/138548690/assets{?name,label}"
+          release_id: 138548690
+          asset_path: ./corporate.zip # path to archive to upload
+          asset_name: corporate.zip # name to upload the release as, use $$ to insert date (YYYYMMDD) and 6 letter commit hash
+          asset_content_type: application/zip # required by GitHub API
+          max_releases: 7 # optional, if there are more releases than this matching the asset_name, the oldest ones are going to be deleted          
+
+      # - name: Upload release binary
+      #   uses: actions/upload-release-asset@v1.0.2
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     upload_url: "https://uploads.github.com/repos/anthonymoser/il-corporate-filings/releases/138548690/assets{?name,label}"
+      #     asset_path: llc.zip 
+      #     asset_name: llc.zip
+      #     asset_content_type: application/zip
       
-      - name: Upload release binary
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: "https://uploads.github.com/repos/anthonymoser/il-corporate-filings/releases/138548690/assets{?name,label}"
-          asset_path: corporate.zip
-          asset_name: corporate.zip
-          asset_content_type: application/zip
+      # - name: Upload release binary
+      #   uses: actions/upload-release-asset@v1.0.2
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     upload_url: "https://uploads.github.com/repos/anthonymoser/il-corporate-filings/releases/138548690/assets{?name,label}"
+      #     asset_path: corporate.zip
+      #     asset_name: corporate.zip
+      #     asset_content_type: application/zip
          
       - name: keepalive
         uses: gautamkrishnar/keepalive-workflow@v1
