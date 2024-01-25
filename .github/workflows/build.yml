@@ -40,7 +40,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: "https://uploads.github.com/repos/anthonymoser/il-corporate-filings/releases/138548690/assets{?name,label}"
-          asset_path: ./llc.zip 
+          asset_path: llc.zip 
           asset_name: llc.zip
           asset_content_type: application/zip
       
@@ -50,7 +50,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: "https://uploads.github.com/repos/anthonymoser/il-corporate-filings/releases/138548690/assets{?name,label}"
-          asset_path:  ./corporate.zip
+          asset_path: corporate.zip
           asset_name: corporate.zip
           asset_content_type: application/zip
          
