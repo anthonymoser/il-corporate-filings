@@ -36,6 +36,5 @@ corporate.zip : cdxallmst.csv cdxallnam.csv cdxallagt.csv cdxallarp.csv cdxallao
 	touch $@	
 
 %.zip :
-	@curl 
-            -o https://storage.googleapis.com/pdt_central/il_corporate_filings/$@
+	@curl --remote-name https://storage.googleapis.com/pdt_central/il_corporate_filings/$@
 
