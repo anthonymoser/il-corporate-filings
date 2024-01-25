@@ -31,7 +31,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: build database
         env:
-          ZYTE_API_KEY: ${{ secrets.ZYTE_API_KEY }}
         run: make
  
       - name: release
@@ -39,7 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # automatically provided by github actions
         with:
-          upload_url: https://uploads.github.com/repos/fgregg/il-corporate-filings/releases/79350828/assets{?name,label}
+          upload_url: https://uploads.github.com/repos/anthonymoser/il-corporate-filings/releases/79350828/assets{?name,label}
           release_id: 79350828
           asset_path: ./llc.zip # path to archive to upload
           asset_name: llc.zip # name to upload the release as, use $$ to insert date (YYYYMMDD) and 6 letter commit hash
@@ -50,7 +49,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # automatically provided by github actions
         with:
-          upload_url: https://uploads.github.com/repos/fgregg/il-corporate-filings/releases/79350828/assets{?name,label}
+          upload_url: https://uploads.github.com/repos/anthonymoser/il-corporate-filings/releases/79350828/assets{?name,label}
           release_id: 79350828
           asset_path: ./corporate.zip # path to archive to upload
           asset_name: corporate.zip # name to upload the release as, use $$ to insert date (YYYYMMDD) and 6 letter commit hash
